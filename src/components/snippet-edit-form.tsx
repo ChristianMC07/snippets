@@ -17,20 +17,24 @@ export default function SnippetEditForm({ snippet }: SnippetEditFormProps) {
     }
     return (
         <div>
-            <Editor
-                height="50vh"
-                language="javascript"
-                theme="vs-dark"
-                defaultValue={code}
-                options={
-                    {
-                        minimap: {
-                            enabled: false
-                        },
+            <form>
+                <Editor
+                    height="50vh"
+                    language="javascript"
+                    theme="vs-dark"
+                    defaultValue={code}
+                    options={
+                        {
+                            minimap: {
+                                enabled: false
+                            },
+                        }
                     }
-                }
-                onChange={handleEditorChange}
-            />
+                    onChange={handleEditorChange}
+                />
+
+                <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">Save</button>
+            </form>
         </div>
     )
 }
