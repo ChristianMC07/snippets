@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { notFound } from "next/navigation";
+import SnippetEditForm from "@/components/snippet-edit-form";
 
 interface SnippetEditPageProps {
     params: Promise<{
@@ -21,7 +22,6 @@ export default async function SnippetEditPage(props: SnippetEditPageProps) {
 
 
     return (
-        <form className="flex flex-col gap-4">
-        </form>
+        <SnippetEditForm snippet={snippet} />
     )
 }
