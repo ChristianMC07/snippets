@@ -21,8 +21,10 @@ export default function SnippetEditForm({ snippet }: SnippetEditFormProps) {
 
 
     return (
-        <div>
-            <form action={editSnippetAction}>
+        <div className="flex flex-col gap-4">
+            <h1 className="text-xl font-bold">Edit Snippet</h1>
+            <h2 className="text-lg font-bold">{snippet.title}</h2>
+            <form action={editSnippetAction} className="flex flex-col gap-4">
                 <Editor
                     height="50vh"
                     language="javascript"
@@ -38,7 +40,7 @@ export default function SnippetEditForm({ snippet }: SnippetEditFormProps) {
                     onChange={handleEditorChange}
                 />
 
-                <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">Save</button>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded-md w-fit" type="submit">Save</button>
             </form>
         </div>
     )
