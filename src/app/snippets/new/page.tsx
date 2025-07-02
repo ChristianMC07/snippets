@@ -1,32 +1,23 @@
-import { redirect } from "next/navigation";
-import { db } from "@/db";
+'use client'
+
+import { createSnippet } from '@/actions/actions'
+import { useActionState, startTransition } from 'react'
 
 export default function SnippetCreatePage() {
 
-    async function createSnippet(formData: FormData) {
-        //make clear to NextJS that this is a server action
-        'use server';
-        //check user's inputs and validate them
-        const title = formData.get('title') as string;
-        const code = formData.get('code') as string;
-        //create a new record in the DB
+    const [formState, action] = useActionState(createSnippet, { message: "" })
 
-        const snippet = await db.snippet.create({
-            data: {
-                title: title,
-                code: code
-            }
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        startTransition(() => {
+            action(formData);
         })
-
-        console.log(snippet);
-
-        //redirect the user back to the root route
-        redirect('/');
     }
 
 
     return (
-        <form action={createSnippet}>
+        <form onSubmit={handleSubmit}>
             <h3 className="font-bold mb-4">Create a Snippet</h3>
             <div className="flex flex-col gap-4">
                 <div className="flex gap-4">
@@ -37,6 +28,14 @@ export default function SnippetCreatePage() {
                     <label htmlFor="code">Code</label>
                     <input type="textarea" id="code" name="code" className="border rounded p-2 w-full" />
                 </div>
+
+                {/* <div>
+                    {formState.message}
+                </div> */}
+
+                {formState.message && (
+                    <div className="my-2 p-2 bg-red-200 border rounded border-red-400">{formState.message}</div>
+                )}
 
                 <button type="submit" className="rounded p-2 bg-blue-200">Create</button>
             </div>
