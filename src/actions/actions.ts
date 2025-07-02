@@ -19,24 +19,32 @@ export async function deleteSnippet(id:number){
 }
 
 export async function createSnippet(formState:{message:string}, formData: FormData) {
-
-   return{
-    message: 'Title must be longer'
-   };
    
-    // const title = formData.get('title') as string;
-    // const code = formData.get('code') as string;
-    // //create a new record in the DB
+    const title = formData.get('title');
+    const code = formData.get('code');
 
-    // const snippet = await db.snippet.create({
-    //     data: {
-    //         title: title,
-    //         code: code
-    //     }
-    // })
+    if(typeof title !== 'string' || title.length<3){
+        return{
+            message: 'Title must be longer'
+        }
+    }
+    if(typeof code !=='string' || code.length<10 ){
+        return {
+            message:'Code must be longer'
+        }
+    }
+    
+    //create a new record in the DB
 
-    // console.log(snippet);
+    const snippet = await db.snippet.create({
+        data: {
+            title: title,
+            code: code
+        }
+    })
 
-    // //redirect the user back to the root route
-    // redirect('/');
+    console.log(snippet);
+
+    //redirect the user back to the root route
+    redirect('/');
 }
