@@ -9,6 +9,7 @@ export async function editSnippet(id:number, code:string ){
         where: {id:id},
         data:{code:code}
     })
+    revalidatePath(`/snippets/${id}`);
     redirect(`/snippets/${id}`);
 }
 
