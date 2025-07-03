@@ -8,7 +8,7 @@ export default async function Home() {
     <div className="col s12 m6 l4" key={snippet.id}>
       <div className="card hoverable">
         <div className="card-content">
-          <span className="card-title">{snippet.title}</span>
+          <span className="card-title black-text">{snippet.title}</span>
         </div>
         <div className="card-action">
           <Link href={`/snippets/${snippet.id}`} className="blue-text text-darken-2">
